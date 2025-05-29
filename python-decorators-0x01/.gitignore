@@ -1,0 +1,13 @@
+# Ignore all .log files
+*.log
+
+# Optional: ignore SQLite databases
+*.db
+
+# Optional: ignore Python bytecode and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env

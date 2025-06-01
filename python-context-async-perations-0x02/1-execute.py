@@ -22,3 +22,12 @@ class ExecuteQuery:
             print("An error occurred:", exc_val)
         # Returning False lets exceptions propagate
         return False
+    
+
+
+query = "SELECT * FROM users WHERE age > ?"
+params = (25,)
+
+with ExecuteQuery(r"C:\Users\nyemi\users.db", query, params) as results:
+    for row in results:
+        print(row)

@@ -47,7 +47,6 @@ class TestAccessNestedMap(unittest.TestCase):
 
 
 
-#-----------------------------------------------------------------------------------------
 class TestGetJson(unittest.TestCase):
 
     """Test case for the get_json function."""
@@ -59,7 +58,8 @@ class TestGetJson(unittest.TestCase):
         self, 
         name: str, 
         test_url: str, 
-        test_payload: dict) -> None:
+        test_payload: dict
+        ) -> None:
         """Test get_json returns expected payload from mocked request."""
        
         mock_response = Mock()

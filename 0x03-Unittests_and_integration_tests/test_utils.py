@@ -42,25 +42,31 @@ class TestAccessNestedMap(unittest.TestCase):
         and that the exception message is the missing key."""
         with self.assertRaises(KeyError) as context:
             access_nested_map(nested_map, path)
-        self.assertEqual(str(context.exception), repr(missing_key))
+        self.assertEqual(str(context.exception), repr(missing_key)) 
+        #key error exception internally uses repr
 
 
+
+#-----------------------------------------------------------------------------------------
 class TestGetJson(unittest.TestCase):
-    """Test case for the get_json function."""
 
+    """Test case for the get_json function."""
     @parameterized.expand([
         ("valid_example_url", "http://example.com", {"payload": True}),
         ("valid_holberton_url", "http://holberton.io", {"payload": False}),
     ])
     def test_get_json(self, name: str, test_url: str, test_payload: dict) -> None:
         """Test get_json returns expected payload from mocked request."""
+       
         mock_response = Mock()
         mock_response.json.return_value = test_payload
-
-        with patch("utils.requests.get", return_value=mock_response) as mock_get:
+        with patch("utils.requests.get") as mocked_get:
+            mocked_get.return_value = mock_response
+            
             result = get_json(test_url)
+            mocked_get.assert_called_once_with(test_url)
             self.assertEqual(result, test_payload)
-            mock_get.assert_called_once_with(test_url)
+            
 
 
 

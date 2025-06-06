@@ -23,10 +23,9 @@ class TestAccessNestedMap(unittest.TestCase):
         self,
         nested_map: Mapping,
         path: Sequence[str],
-        expected: Any
-    ) -> None:
+        expected: Any) -> None:
      """Test access_nested_map with various nested structures."""
-         self.assertEqual(access_nested_map(nested_map, path), expected)
+        self.assertEqual(access_nested_map(nested_map, path), expected)
     
     @parameterized.expand([
         ({}, ("a",), "a"),
@@ -36,8 +35,7 @@ class TestAccessNestedMap(unittest.TestCase):
             self,
             nested_map: Mapping,
             path: Sequence[str],
-            missing_key: str
-    ) -> None:
+            missing_key: str) -> None:
         """Test that access_nested_map raises KeyError for missing keys
         and that the exception message is the missing key."""
         with self.assertRaises(KeyError) as context:

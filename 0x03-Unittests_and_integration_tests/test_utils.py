@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unit tests for access_nested_map utility function."""
+"""Unit tests for access_nested_map utility function in utils module."""
 
 import unittest
 from parameterized import parameterized
@@ -24,7 +24,7 @@ class TestAccessNestedMap(unittest.TestCase):
         """Test that access_nested_map returns the correct value."""
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
-  @parameterized.expand([
+    @parameterized.expand([
         ({}, ("a",), "a"),
         ({"a": 1}, ("a", "b"), "b"),
     ])

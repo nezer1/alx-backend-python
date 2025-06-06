@@ -42,5 +42,3 @@ class TestAccessNestedMap(unittest.TestCase):
             access_nested_map(nested_map, path)
         self.assertEqual(str(context.exception), repr(missing_key)) 
         #key error exception internally uses repr
-if __name__ == "__main__":
-     unittest.main()

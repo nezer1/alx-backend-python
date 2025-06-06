@@ -13,7 +13,6 @@ class TestGithubOrgClient(unittest.TestCase):
     """
     Test case for GithubOrgClient.
     """
-
     @parameterized.expand([
         ("google",),
         ("abc",),
@@ -28,7 +27,7 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_get_json.return_value = expected_payload
 
         client = GithubOrgClient(org_name)
-        self.assertEqual(client.org, expected_payload)
+        self.assertEqual(client.org(), expected_payload)
         mock_get_json.assert_called_once_with(
             f"https://api.github.com/orgs/{org_name}"
         )

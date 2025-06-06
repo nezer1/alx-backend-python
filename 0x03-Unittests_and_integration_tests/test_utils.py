@@ -9,6 +9,7 @@ from typing import Mapping, Sequence, Any, Dict
 from unittest.mock import patch, Mock
 from utils import access_nested_map, get_json, memoize
 
+
 class TestAccessNestedMap(unittest.TestCase):
     """Test case class for the access_nested_map function."""
 
@@ -70,6 +71,7 @@ class TestGetJson(unittest.TestCase):
             mock_get.assert_called_once_with(test_url)
             self.assertEqual(result, test_payload)
 
+
 class TestMemoize(unittest.TestCase):
     """Test case class for the memoize decorator."""
 
@@ -90,10 +92,11 @@ class TestMemoize(unittest.TestCase):
 
         test_obj = TestClass()
 
-        with patch.object(test_obj,
+        with patch.object(
+            test_obj,
             'a_method',
             wraps=test_obj.a_method
-            ) as mock:
+        ) as mock:
             first_result = test_obj.a_property
             second_result = test_obj.a_property
 

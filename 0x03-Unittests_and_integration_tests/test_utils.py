@@ -14,11 +14,11 @@ from client import GithubOrgClient
 class TestAccessNestedMap(unittest.TestCase):
     """Test case for the access_nested_map function."""
 
-@parameterized.expand([
-({"a": 1}, ("a",), 1),
-({"a": {"b": 2}}, ("a",), {"b": 2}),
-({"a": {"b": 2}}, ("a", "b"), 2),
-])
+    @parameterized.expand([
+    ({"a": 1}, ("a",), 1),
+    ({"a": {"b": 2}}, ("a",), {"b": 2}),
+    ({"a": {"b": 2}}, ("a", "b"), 2),
+    ])
     def test_access_nested_map(
         self,
         nested_map: Mapping,
@@ -42,67 +42,5 @@ class TestAccessNestedMap(unittest.TestCase):
             access_nested_map(nested_map, path)
         self.assertEqual(str(context.exception), repr(missing_key)) 
         #key error exception internally uses repr
-
-
-
-# class TestGetJson(unittest.TestCase):
-
-#     """Test case for the get_json function."""
-#     @parameterized.expand([
-#         ("valid_example_url", "http://example.com", {"payload": True}),
-#         ("valid_holberton_url", "http://holberton.io", {"payload": False}),
-#     ])
-#     def test_get_json(
-#         self, 
-#         name: str, 
-#         test_url: str, 
-#         test_payload: dict
-#         ) -> None:
-#         """Test get_json returns expected payload from mocked request."""
-       
-#         mock_response = Mock()
-#         mock_response.json.return_value = test_payload
-#         with patch("utils.requests.get") as mocked_get:
-#             mocked_get.return_value = mock_response
-            
-#             result = get_json(test_url)
-#             mocked_get.assert_called_once_with(test_url)
-#             self.assertEqual(result, test_payload)
-            
-
-
-
-# # class TestMemoize(unittest.TestCase):
-# #     """
-# #     Test case for memoize decorator.
-# #     """
-
-# #     def test_memoize(self) -> None:
-# #         """
-# #         Test that memoize caches the result of a method.
-# #         """
-
-# #         class TestClass:
-# #             """A sample class for testing memoization."""
-
-# #             def a_method(self) -> int:
-# #                 """A method to return 42."""
-# #                 return 42
-
-# #             @memoize
-# #             def a_property(self) -> int:
-# #                 """A memoized property that calls a_method."""
-# #                 return self.a_method()
-
-# #         with patch.object(TestClass, 'a_method', return_value=42) as mock_method:
-# #             obj = TestClass()
-# #             result1 = obj.a_property
-# #             result2 = obj.a_property
-
-# #             self.assertEqual(result1, 42)
-# #             self.assertEqual(result2, 42)
-# #             mock_method.assert_called_once()
-
-
 if __name__ == "__main__":
      unittest.main()

@@ -34,10 +34,8 @@ class TestAccessNestedMap(unittest.TestCase):
         path: Sequence[str],
         missing_key: str
     ) -> None:
-        """
-        Test that access_nested_map raises a KeyError for invalid paths
-        and that the exception message matches the missing key.
-        """
+        """ Test that access_nested_map raises a KeyError for invalid paths
+        and that the exception message matches the missing key."""
         with self.assertRaises(KeyError) as context:
             access_nested_map(nested_map, path)
         self.assertEqual(str(context.exception), repr(missing_key))

@@ -25,7 +25,7 @@ class TestAccessNestedMap(unittest.TestCase):
         path: Sequence[str],
         expected: Any) -> None:
      """Test access_nested_map with various nested structures."""
-        self.assertEqual(access_nested_map(nested_map, path), expected)
+                                self.assertEqual(access_nested_map(nested_map, path), expected)
     
     # @parameterized.expand([
     #     ({}, ("a",), "a"),

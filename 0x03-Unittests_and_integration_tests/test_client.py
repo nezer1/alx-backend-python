@@ -62,38 +62,44 @@ class TestGithubOrgClient(unittest.TestCase):
                 with self.assertRaises(KeyError):
                     client._public_repos_url
                     
-    @patch("client.get_json")
+    @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
-        """
-        Unit test GithubOrgClient.public_repos:
-        - mock get_json to return a custom payload
-        - mock _public_repos_url property
-        - assert repos list matches expected
-        - check mocks called exactly once
-        """
-        test_payload = [
-            {"name": "repo1"},
-            {"name": "repo2"},
-            {"name": "repo3"},
+        """Tests the test_public_repos."""
+        payload = [
+            {
+                "name": "google-repo-one",
+                "license": {
+                    "key": "apache-2.0"
+                    }
+            },
+            {
+                "name": "google-repo-two",
+                "license": {
+                    "key": "mit"
+                    }
+            },
+            {
+                "name": "google-repo-three",
+                "license": None
+            },
+            {
+                "name": "google-repo-four"
+            }
         ]
-        expected_repos = [
-            "repo1",
-            "repo2",
-            "repo3"
-        ]
-
-        # Mock get_json to return test_payload
-        mock_get_json.return_value = test_payload
-
+        mock_get_json.return_value = payload
         with patch(
-            "client.GithubOrgClient._public_repos_url",
-            new_callable=PropertyMock) as mock_url:
-            mock_url.return_value = """
-                https://api.github.com/orgs/testorg/repos
+            'client.GithubOrgClient._public_repos_url',
+            new_callable=PropertyMock
+        ) as mock_public_repos_url:
+            mock_public_repos_url.return_value = """
+            https://api.github.com/orgs/google/repos
             """
-            client = GithubOrgClient("testorg")
-            repos = client.public_repos()
-
-            self.assertEqual(repos, expected_repos)
-            mock_url.assert_called_once()
+            client = GithubOrgClient('google')
+            public_repo = client.public_repos()
+            expected_public_repo = [
+                "google-repo-one", "google-repo-two",
+                "google-repo-three", "google-repo-four"
+                ]
+            self.assertEqual(public_repo, expected_public_repo)
             mock_get_json.assert_called_once()
+            mock_public_repos_url.assert_called_once()

@@ -40,11 +40,13 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     def test_public_repos_url(self, org_name: str) -> None:
         """
-        Test that _public_repos_url returns the expected value
+        Test that _public_repos_url 
+        returns the expected value
         from the mocked .org property.
         """
         payload = {"repos_url": 
-                   "https://api.github.com/orgs/google/repos"}
+                   "https://api.github.com/orgs/google/repos"
+                  }
         bad_payload = {message": "Not Found",
                 "status": "404"}
         with patch(
@@ -76,7 +78,11 @@ class TestGithubOrgClient(unittest.TestCase):
             {"name": "repo2"},
             {"name": "repo3"},
         ]
-        expected_repos = ["repo1", "repo2", "repo3"]
+        expected_repos = [
+            "repo1",
+            "repo2",
+            "repo3"
+        ]
 
         # Mock get_json to return test_payload
         mock_get_json.return_value = test_payload

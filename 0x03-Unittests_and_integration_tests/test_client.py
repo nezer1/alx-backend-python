@@ -29,7 +29,7 @@ class TestGithubOrgClient(unittest.TestCase):
         client = GithubOrgClient(org_name)
         output = client.org
         self.assertEqual(output, expected_payload)
-        
+
         mock_get_json.assert_called_once_with(
             f"https://api.github.com/orgs/{org_name}"
         )
@@ -47,10 +47,10 @@ class TestGithubOrgClient(unittest.TestCase):
         payload = {"repos_url":
                    "https://api.github.com/orgs/google/repos"}
         bad_payload = {message": "Not Found",
-                "status": "404"}
+                      "status": "404"}
         with patch(
-            'client.GithubOrgClient.org', 
-            new_callable=PropertyMock) as mock_org:
+            'client.GithubOrgClient.org',
+             new_callable=PropertyMock) as mock_org:
             if org_name == 'google':
                 mock_org.return_value = payload
                 client = GithubOrgClient("google")
@@ -86,10 +86,10 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_get_json.return_value = test_payload
 
         with patch(
-            "client.GithubOrgClient._public_repos_url", 
+            "client.GithubOrgClient._public_repos_url",
             new_callable=PropertyMock) as mock_url:
             mock_url.return_value = """
-            https://api.github.com/orgs/testorg/repos
+                https://api.github.com/orgs/testorg/repos
             """
             client = GithubOrgClient("testorg")
             repos = client.public_repos()
@@ -105,7 +105,7 @@ class TestGithubOrgClient(unittest.TestCase):
     #       {"key": "other_license"}}, "my_license", False),
     # ])
     # def test_has_license(self, repo, license_key, expected):
-    #     """Test has_license returns expected boolean 
+    #     """Test has_license returns expected boolean
     #     for given repo/license_key
     #     """
     #     result = GithubOrgClient.has_license(repo, license_key)

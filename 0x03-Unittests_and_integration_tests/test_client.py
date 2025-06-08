@@ -40,19 +40,17 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     def test_public_repos_url(self, org_name: str) -> None:
         """
-        Test that _public_repos_url 
+        Test that _public_repos_url
         returns the expected value
         from the mocked .org property.
         """
-        payload = {"repos_url": 
-                   "https://api.github.com/orgs/google/repos"
-                  }
+        payload = {"repos_url":
+                   "https://api.github.com/orgs/google/repos"}
         bad_payload = {message": "Not Found",
                 "status": "404"}
         with patch(
             'client.GithubOrgClient.org', 
-            new_callable=PropertyMock) 
-        as mock_org:
+            new_callable=PropertyMock) as mock_org:
             if org_name == 'google':
                 mock_org.return_value = payload
                 client = GithubOrgClient("google")
@@ -101,9 +99,9 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_get_json.assert_called_once()
 
     # @parameterized.expand([
-    #     ({"license": 
+    #     ({"license":
     #       {"key": "my_license"}}, "my_license", True),
-    #     ({"license": 
+    #     ({"license":
     #       {"key": "other_license"}}, "my_license", False),
     # ])
     # def test_has_license(self, repo, license_key, expected):
@@ -112,6 +110,3 @@ class TestGithubOrgClient(unittest.TestCase):
     #     """
     #     result = GithubOrgClient.has_license(repo, license_key)
     #     self.assertEqual(result, expected)
-        
-if __name__ == "__main__":
-    unittest.main()

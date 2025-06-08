@@ -47,10 +47,9 @@ class TestGithubOrgClient(unittest.TestCase):
         payload = {"repos_url":
                    "https://api.github.com/orgs/google/repos"}
         bad_payload = {message": "Not Found",
-                      "status": "404"}
-        with patch(
-            'client.GithubOrgClient.org',
-             new_callable=PropertyMock) as mock_org:
+                        "status": "404"}
+        with patch('client.GithubOrgClient.org',
+                     new_callable=PropertyMock) as mock_org:
             if org_name == 'google':
                 mock_org.return_value = payload
                 client = GithubOrgClient("google")
@@ -61,7 +60,7 @@ class TestGithubOrgClient(unittest.TestCase):
                 mock_org.return_value = bad_payload
                 with self.assertRaises(KeyError):
                     client._public_repos_url
-                    
+            
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
         """Tests the test_public_repos."""

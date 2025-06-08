@@ -34,18 +34,32 @@ class TestGithubOrgClient(unittest.TestCase):
             f"https://api.github.com/orgs/{org_name}"
         )
 
-    def test_public_repos_url(self) -> None:
+    @parameterized.expand([
+            ("google",),
+            ("abc",)
+    ])
+    def test_public_repos_url(self, org_name: str) -> None:
         """
         Test that _public_repos_url returns the expected value
         from the mocked .org property.
         """
-        payload = {"repos_url": "https://api.github.com/orgs/google/repos"}
-
-        with patch.object(GithubOrgClient, "org", new_callable=PropertyMock) as mock_org:
-            mock_org.return_value = payload
-            client = GithubOrgClient("google")
-            self.assertEqual(client._public_repos_url, payload["repos_url"])
-
+        payload = {"repos_url": 
+                   "https://api.github.com/orgs/google/repos"}
+        bad_payload = {message": "Not Found",
+                "status": "404"}
+        with patch(
+            'client.GithubOrgClient.org', 
+            new_callable=PropertyMock) 
+        as mock_org:
+            if org_name == 'google':
+                mock_org.return_value = payload
+                client = GithubOrgClient("google")
+                self.assertEqual(client._public_repos_url, payload["repos_url"])
+            else:
+                mock_org.return_value = bad_payload
+                with self.assertRaises(KeyError):
+                    client._public_repos_url
+                
     @patch("client.get_json")
     def test_public_repos(self, mock_get_json):
         """

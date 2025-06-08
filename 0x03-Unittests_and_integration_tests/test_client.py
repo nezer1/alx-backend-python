@@ -60,7 +60,7 @@ class TestGithubOrgClient(unittest.TestCase):
                 mock_org.return_value = bad_payload
                 with self.assertRaises(KeyError):
                     client._public_repos_url
-            
+    
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
         """Tests the test_public_repos."""

@@ -48,9 +48,10 @@ class TestGithubOrgClient(unittest.TestCase):
                    "https://api.github.com/orgs/google/repos"}
         bad_payload = {message": "Not Found",
                        "status": "404"}
-        with patch('client.GithubOrgClient.org',
-                   new_callable=PropertyMock
-                  ) as mock_org:
+        with patch(
+            'client.GithubOrgClient.org',
+            new_callable=PropertyMock
+        ) as mock_org:
             if org_name == 'google':
                 mock_org.return_value = payload
                 client = GithubOrgClient("google")
